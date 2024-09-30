@@ -21,6 +21,7 @@ namespace ButikLab2
 		{
 			Name = name;
 			Password = password;
+			_cart = new List<Product>();
 		}
 
 		public string Name { get => _name; set
@@ -45,7 +46,10 @@ namespace ButikLab2
 		// Customer login method
 		public static Customer Login(List<Customer> customers)
 		{
-            Console.WriteLine("Enter your username:");
+			Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Lush Locks");
+			Console.ResetColor();
+            Console.WriteLine("Please log in\nEnter your username:");
 			string userName = Console.ReadLine();
 
             Console.WriteLine("Enter your password:");
@@ -67,7 +71,10 @@ namespace ButikLab2
 
 		public static void registerCustomer(List<Customer> customers)
 		{
-			Console.WriteLine("To become a member create an account.\nEnter your username:");
+			Console.ForegroundColor= ConsoleColor.Magenta;
+            Console.WriteLine("Lush Locks");
+			Console.ResetColor();
+            Console.WriteLine("To become a member create an account.\nEnter your username:");
 			string userName = Console.ReadLine();
 
             Console.WriteLine("Enter your password:");
@@ -75,6 +82,29 @@ namespace ButikLab2
 
 			customers.Add(new Customer(userName, userPassword));
             Console.WriteLine("Successfully registered, log in to get started!");
+        }
+
+		//Cart view method
+
+		public void ViewCart()
+		{
+			Console.Clear();
+			Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Your shopping cart:");
+			Console.ResetColor();
+			if (Cart.Count == 0)
+			{
+                Console.WriteLine("Your cart is empty");
+            }
+			else
+			{
+				foreach(var product in Cart)
+				{
+					Console.WriteLine($"-{product.Name}: {product.Price}kr");
+				}
+			}
+            Console.WriteLine("Press enter to go back to the menu.");
+			Console.ReadKey();
         }
 		
 	  

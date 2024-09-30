@@ -46,7 +46,6 @@ namespace ButikLab2
 					{
 						case 1:
 							Console.Clear();
-							Console.WriteLine("Please log in:");
 							//call login method
 						    loggedInCustomer = Customer.Login(customers);
 							if(loggedInCustomer != null)
@@ -94,7 +93,10 @@ namespace ButikLab2
 			while (shopping)
 			{
 				Console.Clear();
-                Console.WriteLine("1.Shop\n2.View Cart\n3. Log out");
+				Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Lush Locks");
+				Console.ResetColor();
+                Console.WriteLine("1.Shop\n2.View Cart\n3.Check Out\n4.Log Out");
 				string shoppingInput = Console.ReadLine();
 				int shoppingChoice;
 
@@ -103,28 +105,38 @@ namespace ButikLab2
 					switch (shoppingChoice)
 					{
 						case 1:
-						Product.DisplayProducts(products);
-                        Console.WriteLine("Enter the name of the product to add to your cart:");
-						string productInput = Console.ReadLine();
-						Product selectedProduct = products.Find(p=>p.Name.Equals(productInput, StringComparison.OrdinalIgnoreCase));
+						    bool continueShopping = true;
+							while (continueShopping)
+							{
+								Product.DisplayProducts(products);
+                                Console.WriteLine("\nEnter the name of the product to add to your cart:\nType 'exit' to stop shopping.");
+						        string productInput = Console.ReadLine();
 
-						if (selectedProduct != null)
-							{
-								customer.Cart.Add(selectedProduct);
-                                Console.WriteLine($"{selectedProduct.Name} has been added to your cart.");
+								if (productInput.Trim().ToLower().Equals("exit", StringComparison.OrdinalIgnoreCase))
+								{
+									continueShopping = false;
+									break;
+								}
+
+								Product selectedProduct = products.Find(p => p.Name.Equals(productInput.ToLower().Trim(), StringComparison.OrdinalIgnoreCase));
+								if (selectedProduct != null)
+								{
+									customer.Cart.Add(selectedProduct);
+									Console.WriteLine($"{selectedProduct.Name} has been added to your cart.");
+								}
+								else
+								{
+									Console.WriteLine("Product wasn't found");
+								}
+
+                                Console.WriteLine("Press ebter to continue shopping");
+								Console.ReadKey();
+
                             }
-							else
-							{
-                                Console.WriteLine("Product wasn't found");
-                            }
-                            Console.WriteLine("Press enter to continue shopping");
-							Console.ReadKey(); 
 							break;
 
 						case 2:
-                        Console.WriteLine(customer.ToString());
-                        Console.WriteLine("Press enter to continue");
-					    Console.ReadKey();
+						customer.ViewCart();
 						break;
 
                         case 3:
@@ -148,7 +160,6 @@ namespace ButikLab2
                 }
             }
 		}
-
     } 
 }
 

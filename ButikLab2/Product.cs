@@ -24,7 +24,9 @@ namespace ButikLab2
 		public static void DisplayProducts(List<Product> products)
 		{
             Console.Clear();
-            Console.WriteLine("Our products");
+			Console.ForegroundColor = ConsoleColor.Magenta;	
+            Console.WriteLine("Lush Locks\nOur products:");
+			Console.ResetColor();
             foreach (var product in products)
 			{
 			    Console.WriteLine($"-{product.Name}: {product.Description} (Price: {product.Price}kr)");
