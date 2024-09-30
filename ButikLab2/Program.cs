@@ -5,7 +5,18 @@ namespace ButikLab2
 	internal class Program
 	{
 		static void Main(string[] args)
-		{   // list of customers
+		{
+			//List of products
+
+			List<Product> products = new List<Product>
+			{
+				new Product("Lush Shampoo","Repairs and adds volume for soft, bouncy hair.", 119.00 ),
+				new Product("Lush Conditioner", "Nourishes and hydrates for smooth, manageable hair.", 112.00),
+				new Product("Lush Hair Mask", "Overnight hair treatment for frizz control and shine", 219.20),
+				new Product("Lush Scalp Serum", "Repair hair serum", 99.00),
+				new Product("Lush Hair Oil", "Strengthensand adds shine for quick growth", 269.00)
+			};
+			// list of customers
 			List<Customer> customers = new List<Customer>
 			{
 				new Customer("Knatte", "123"),
@@ -16,6 +27,7 @@ namespace ButikLab2
 			
 
 			bool running = true;
+			Customer loggedInCustomer = null;
 			while (running)
 			{
 				Console.Clear();
@@ -36,7 +48,11 @@ namespace ButikLab2
 							Console.Clear();
 							Console.WriteLine("Please log in:");
 							//call login method
-							Customer loggedInCustomer = Customer.Login(customers);
+						    loggedInCustomer = Customer.Login(customers);
+							if(loggedInCustomer != null)
+							{
+								ShoppingMenu(loggedInCustomer, products);
+							}
 							Console.WriteLine("Press enter to go back to the menu");
 							Console.ReadKey();
 							break;
@@ -68,6 +84,71 @@ namespace ButikLab2
 			}
 			
 		}
+
+		static void ShoppingMenu(Customer customer, List<Product> products)
+		{
+			bool shopping = true;
+
+			//Shopping menu
+
+			while (shopping)
+			{
+				Console.Clear();
+                Console.WriteLine("1.Shop\n2.View Cart\n3. Log out");
+				string shoppingInput = Console.ReadLine();
+				int shoppingChoice;
+
+				if(int.TryParse(shoppingInput, out shoppingChoice))
+				{
+					switch (shoppingChoice)
+					{
+						case 1:
+						Product.DisplayProducts(products);
+                        Console.WriteLine("Enter the name of the product to add to your cart:");
+						string productInput = Console.ReadLine();
+						Product selectedProduct = products.Find(p=>p.Name.Equals(productInput, StringComparison.OrdinalIgnoreCase));
+
+						if (selectedProduct != null)
+							{
+								customer.Cart.Add(selectedProduct);
+                                Console.WriteLine($"{selectedProduct.Name} has been added to your cart.");
+                            }
+							else
+							{
+                                Console.WriteLine("Product wasn't found");
+                            }
+                            Console.WriteLine("Press enter to continue shopping");
+							Console.ReadKey(); 
+							break;
+
+						case 2:
+                        Console.WriteLine(customer.ToString());
+                        Console.WriteLine("Press enter to continue");
+					    Console.ReadKey();
+						break;
+
+                        case 3:
+                        Console.WriteLine("checkout");
+						break ;
+
+						case 4:
+						shopping = false;
+						break;
+
+						default:
+                        Console.WriteLine("Invalid choice");
+						break;
+
+                    }
+				}
+
+				else
+				{
+                    Console.WriteLine("Invalid, enter a ");
+                }
+            }
+		}
+
     } 
 }
 

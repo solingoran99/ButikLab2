@@ -11,6 +11,12 @@ namespace ButikLab2
 		private string _name;
 		private string _Password;
 
+		//Cart property
+
+		private List<Product> _cart;
+		public List<Product> Cart { get { return _cart; } }
+
+
 		public Customer(string name, string password)
 		{
 			Name = name;
@@ -49,7 +55,7 @@ namespace ButikLab2
 
 			if (loggedInCustomer != null)
 			{
-                Console.WriteLine($"Welcome back, {loggedInCustomer.Name}");
+                Console.WriteLine($"Welcome, {loggedInCustomer.Name}");
 				return loggedInCustomer;
             }
 			else
@@ -68,7 +74,7 @@ namespace ButikLab2
 			string userPassword = Console.ReadLine();
 
 			customers.Add(new Customer(userName, userPassword));
-            Console.WriteLine("Successfully registered!");
+            Console.WriteLine("Successfully registered, log in to get started!");
         }
 		
 	  

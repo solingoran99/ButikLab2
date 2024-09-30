@@ -6,7 +6,29 @@ using System.Threading.Tasks;
 
 namespace ButikLab2
 {
-	internal class Product
+	public class Product
 	{
+		public string Name { get; set; }
+		public string Description { get; set; }
+		public double Price { get; set; }
+
+		public Product(string name, string description, double price)
+		{
+			Name = name;
+			Description = description;
+			Price = price;
+		}
+
+		// Method to display products
+
+		public static void DisplayProducts(List<Product> products)
+		{
+            Console.Clear();
+            Console.WriteLine("Our products");
+            foreach (var product in products)
+			{
+			    Console.WriteLine($"-{product.Name}: {product.Description} (Price: {product.Price}kr)");
+			}
+        }
 	}
 }
