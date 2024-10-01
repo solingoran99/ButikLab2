@@ -102,10 +102,26 @@ namespace ButikLab2
 				{
 					Console.WriteLine($"-{product.Name}: {product.Price}kr");
 				}
+				Console.ForegroundColor = ConsoleColor.Red;
+				Console.WriteLine($"\nTotal Price: {TotalPrice()}kr");
+				Console.ResetColor();
 			}
             Console.WriteLine("Press enter to go back to the menu.");
 			Console.ReadKey();
         }
+
+		//Calculate total method
+
+		public double TotalPrice()
+		{
+			double totalPrice = 0;	
+
+			foreach(var product in Cart)
+			{
+				totalPrice += product.Price;
+			}
+			return totalPrice;
+		}
 		
 	  
 		

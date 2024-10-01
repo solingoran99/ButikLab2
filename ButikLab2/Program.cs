@@ -108,7 +108,12 @@ namespace ButikLab2
 						    bool continueShopping = true;
 							while (continueShopping)
 							{
-								Product.DisplayProducts(products);
+								Console.Clear();
+								Console.ForegroundColor= ConsoleColor.Magenta;
+                                Console.WriteLine("Lush Locks");
+								Console.ResetColor();
+
+                                Product.DisplayProducts(products);
                                 Console.WriteLine("\nEnter the name of the product to add to your cart:\nType 'exit' to stop shopping.");
 						        string productInput = Console.ReadLine();
 
@@ -122,14 +127,14 @@ namespace ButikLab2
 								if (selectedProduct != null)
 								{
 									customer.Cart.Add(selectedProduct);
-									Console.WriteLine($"{selectedProduct.Name} has been added to your cart.");
+									Console.WriteLine($"\n{selectedProduct.Name} has been added to your cart.");
 								}
 								else
 								{
 									Console.WriteLine("Product wasn't found");
 								}
 
-                                Console.WriteLine("Press ebter to continue shopping");
+                                Console.WriteLine("Press enter to continue shopping or type 'exit' to go back to the menu:");
 								Console.ReadKey();
 
                             }
@@ -141,7 +146,7 @@ namespace ButikLab2
 
                         case 3:
                         Console.WriteLine("checkout");
-						break ;
+						break;
 
 						case 4:
 						shopping = false;
@@ -156,7 +161,7 @@ namespace ButikLab2
 
 				else
 				{
-                    Console.WriteLine("Invalid, enter a ");
+                    Console.WriteLine("Invalid, enter a number 1-4. ");
                 }
             }
 		}
